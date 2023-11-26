@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.theme {
+    @apply bg-blog-white-200 dark:bg-blog-blue-200 text-blog-black-300 dark:text-blog-white-200;
+}
+
+pre {
+    overflow-x: scroll;
+    @apply bg-blog-blue-500 dark:bg-blog-white-300 text-blog-white-300 dark:text-blog-blue-500 my-8 px-4;
+}
+
+
+
+
