@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import Markdown from 'react-markdown'
+import API_BASE_URL from "../config";
 
 
 const BlogContent = ({blogs}) => {
+  console.log(blogs);
   const {id} = useParams()
   const [blog, setBlog] = useState(null);
 
@@ -29,8 +31,7 @@ const BlogContent = ({blogs}) => {
         <div className="grid grid-cols-1 sm:grid-cols-4 sm:gap-8 gap-y-8 px-4 pt-4 sm:pt-12">
 
           <div className="col-span-3 gap-8">
-            <img className="h-56 w-full object-cover "     src={`http://localhost:1337${blog.attributes.coverImg.data.attributes.url}`}
- alt="" />
+             <img className="h-56 w-full object-cover "     src={blog?.attributes?.coverImg?.data[0]?.attributes?.url} alt="" /> 
             <h1 className="font-bold text-2xl my-1 pt-5">{blog.attributes.blogTitle}</h1>
             <p className="pt-5 text-[1.2rem] leading-[1.8rem] "><Markdown >{blog.attributes.blogContent}</Markdown></p>
           </div>

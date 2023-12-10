@@ -1,44 +1,40 @@
 import {Navbar, RecentBlogs, Blogs, Footer } from "../components";
 import { useRef, useState, useEffect } from "react";
-
+import { useFetch } from "../hooks";
+import API_BASE_URL from "../config";
 
 let postPerPage = 5;
 
-const Homepage = ({blogs}) => {
+const Homepage = () => {
   const currentPage = useRef(1);
   const [blogsPerPage, setBlogsPerPage] = useState([]);
+  const apiUrl = `/api/blogs?pagination[page]=${currentPage.current}&pagination[pageSize]=${postPerPage}&populate=*`;
 
-  const fetchBlogs = async () => {
-    const apiUrl = `https://strapi-d43x.onrender.com/api/blogs?pagination[page]=${currentPage.current}&pagination[pageSize]=${postPerPage}&populate=*`;
-    const res = await fetch(apiUrl);
-    const json = await res.json();
-    setBlogsPerPage(json);
-    console.log(json);
-  };
+  const { data: blogs } = useFetch(`${API_BASE_URL}${apiUrl}`);
+
 
   const fetchNext = () => {
     currentPage.current += 1;
-    fetchBlogs();
+    
+    setBlogsPerPage(blogs?.data || []);
   };
-
   useEffect(() => {
-    fetchBlogs();
-  }, []);
+    setBlogsPerPage(blogs?.data || []);
+  }, [blogs]);
 
   const latestThreeBlogs = blogs?.data?.slice(-4).reverse() || [];
-  console.log(latestThreeBlogs, "latest three");
 
   return (
     <div className="">
       <Navbar />
 
-      <p className="text-3xl sm:text-4xl font-bold text-center  py-6 sm:py-0 sm:pt-12">
+      <p className="text-3xl sm:text-4xl font-bold text-center py-6 sm:py-0 sm:pt-12">
         EKLEKTOS' BLOG
       </p>
 
       <RecentBlogs latestThreeBlogs={latestThreeBlogs} />
 
-      <Blogs blogs={blogsPerPage?.data || []} />
+      <Blogs blogs={blogsPerPage} />
       <button onClick={fetchNext}>Load next</button>
 
       <Footer />

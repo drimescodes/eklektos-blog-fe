@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
-
+import API_BASE_URL from "../config";
 
 const Blogs = ({ blogs }) => {
+  console.log(blogs);
   if (blogs.length < 1) {
     return <div>Loading...</div>; // Display a loading message while data is being fetched.
   }
@@ -21,7 +22,7 @@ const Blogs = ({ blogs }) => {
                 >
                   <img
                     className="aspect-video  w-full object-cover"
-                    src={`http://localhost:1337${blog?.attributes?.coverImg?.data?.attributes?.url}`}
+                    src={blog?.attributes?.coverImg?.data[0]?.attributes?.url}
                     alt=""
                   />
                   <div className="p-4">

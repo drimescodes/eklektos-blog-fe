@@ -10,7 +10,7 @@ const SideWaysBlogCard = ({ blog, className }) => {
       <div className={` bg-blog-white-100 dark:bg-blog-blue-100 rounded-xl overflow-hidden drop-shadow-md flex gap-8 ${className}`}>
         <img
           className="w-[50%]  object-cover "
-          src={`http://localhost:1337${coverImg?.data?.attributes?.url}`}
+          src={blog?.attributes?.coverImg?.data[0]?.attributes?.url}
           alt=""
         />
         <div className="flex flex-col justify-between py-6 gap-2">
