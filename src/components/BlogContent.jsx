@@ -38,7 +38,8 @@ const BlogContent = ({blogs}) => {
 
           <div className="w-full rounded-xl overflow-hidden drop-shadow-md py-5  max-h-[250px] bg-blog-white-100 dark:bg-blog-blue-500">
               <div>
-                  <img className="p-2 w-32 h-32 rounded-full mx-auto" src= {blog.authorImg} alt="" />
+                  <img className="p-2 w-32 h-32 rounded-full mx-auto" src= {blog?.attributes?.authorImg?.data?.attributes?.url} alt="" />
+                  {console.log(blog?.attributes?.authorImg?.data[0]?.attributes?.url)}
                   <h1 className="font-bold text-2xl text-center pt-3  ">{blog.attributes.authorName}</h1>
                   <p className="text-center font-medium">{ blog.authorDesc}</p>
               </div>
